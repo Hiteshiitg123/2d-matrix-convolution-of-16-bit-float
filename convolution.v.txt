@@ -1,0 +1,87 @@
+module convoultion (
+    input[15:0] a[3:0][3:0],
+    input[15:0] b[2:0][2:0],
+    output[15:0] out[1:0][1:0]
+);
+
+wire [15:0] w0,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13;
+wire [15:0] w14,w15;
+
+multiplier M0(a[0][0],b[0][0],w0);
+multiplier M1(a[0][1],b[0][1],w1);
+multiplier M2(a[0][2],b[0][2],w2);
+multiplier M3(a[1][0],b[1][0],w3);
+multiplier M4(a[1][1],b[1][1],w4);
+multiplier M5(a[1][2],b[1][2],w5);
+multiplier M6(a[2][0],b[2][0],w6);
+multiplier M7(a[2][1],b[2][1],w7);
+multiplier M8(a[2][2],b[2][2],w8);
+
+adder A0(W0,w1,w9);
+adder A1(W9,w2,w10);
+adder A2(W10,w3,w11);
+adder A3(W11,w4,w12);
+adder A4(W12,w5,w13);
+adder A5(W13,w6,w14);
+adder A6(W14,w7,w15);
+adder A7(W15,w8,out[0][0]);
+
+multiplier M9(a[0][1],b[0][0],w16);
+multiplier M10(a[0][2],b[0][1],w17);
+multiplier M11(a[0][3],b[0][2],w18);
+multiplier M12(a[1][1],b[1][0],w19);
+multiplier M13(a[1][2],b[1][1],w20);
+multiplier M14(a[1][3],b[1][2],w21);
+multiplier M15(a[2][1],b[2][0],w22);
+multiplier M16(a[2][2],b[2][1],w23);
+multiplier M17(a[2][3],b[2][2],w24);
+
+adder A8(w16,w17,w25);
+adder A9(w25,w18,w26);
+adder A10(w26,w19,w27);
+adder A11(w27,w20,w28);
+adder A12(w28,w21,w29);
+adder A13(w29,w22,w30);
+adder A14(w30,w23,w31);
+adder A15(w31,w24,out[0][1]);
+
+multiplier M18(a[1][0],b[0][0],w32);
+multiplier M19(a[1][1],b[0][1],w33);
+multiplier M20(a[1][2],b[0][2],w34);
+multiplier M21(a[2][0],b[1][0],w35);
+multiplier M22(a[2][1],b[1][1],w36);
+multiplier M23(a[2][2],b[1][2],w37);
+multiplier M24(a[3][0],b[2][0],w38);
+multiplier M25(a[3][1],b[2][1],w39);
+multiplier M26(a[3][2],b[2][2],w40);
+
+adder A16(w32,w33,w41);
+adder A17(w41,w34,w42);
+adder A18(w42,w35,w43);
+adder A19(w43,w36,w44);
+adder A20(w44,w37,w45);
+adder A21(w45,w38,w46);
+adder A22(w46,w39,w47);
+adder A23(w47,w40,out[1][0]);
+
+multiplier M27(a[1][1],b[0][0],w48);
+multiplier M28(a[1][2],b[0][1],w49);
+multiplier M29(a[1][3],b[0][2],w50);
+multiplier M30(a[2][1],b[1][0],w51);
+multiplier M31(a[2][2],b[1][1],w52);
+multiplier M32(a[2][3],b[1][2],w53);
+multiplier M33(a[3][1],b[2][0],w54);
+multiplier M34(a[3][2],b[2][1],w55);
+multiplier M35(a[3][3],b[2][2],w56);
+
+adder A24(w48,w49,w57);
+adder A25(w57,w50,w58);
+adder A26(w58,w51,w59);
+adder A27(w59,w52,w60);
+adder A28(w60,w53,w61);
+adder A29(w61,w54,w62);
+adder A30(w62,w55,w63);
+adder A31(w63,w56,out[1][1]);
+
+    
+endmodule

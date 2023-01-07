@@ -1,0 +1,36 @@
+module multiplier (
+  input[15:0] a,b,
+  output reg [15:0] out
+);
+
+ reg sign;
+   reg [4:0] exponent;
+   reg [11:0] a1,b1;
+   reg [21:0] m;
+
+always @(*) begin
+
+  if(a == 0 || b == 0) begin
+    out = 16'b0;
+  end
+  else begin
+    sign = a[15]^b[15];
+  exponent = a[14:10] + b[14:10] - 5'b01111;
+  a1 = 12'b010000000000;
+  b1 = 12'b010000000000;
+  a1 = a1|a[9:0];
+  b1 = b1|b[9:0];
+  m = a1*b1;
+  if(m[21] == 1) begin
+  out[9:0] = m[20:11];
+  exponent = exponent + 5'b00001;
+  end
+  else begin
+  out[9:0] = m[19:10];
+  end
+  out[15] = sign;
+  out[14:10] = exponent;
+  end
+end
+  
+endmodule

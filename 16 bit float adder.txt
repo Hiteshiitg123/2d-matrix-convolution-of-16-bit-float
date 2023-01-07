@@ -1,0 +1,78 @@
+module adder (
+  input [15:0] a,b,
+  output reg [15:0] out
+  
+);
+
+  reg [10:0] a1,b1;
+  reg [4:0] res;
+  reg [11:0] sum;
+  reg [4:0] exp;
+
+always @(*) begin
+  a1[10] = 1;
+  b1[10] = 1;
+  a1[9:0] = a[9:0];
+  b1[9:0] = b[9:0];
+
+  if(a[14:10] >= b[14:10]) begin
+    res = a[14:10] - b[14:10];
+    exp = a[14:10];
+    b1 = b1 >> res;
+  end
+    
+  else begin
+    res = b[14:10] - a[14:10];
+    exp = b[14:10];
+    a1 = a1 >> res;
+  end
+
+  if(a[15] == 0 && b[15] == 0) begin
+      sum = a1 + b1;
+      out[15] = 0;
+    end
+    else if(a[15] == 0 && b[15] == 1) begin
+      if(a1 >= b1) begin
+        sum = a1 - b1;
+        out[15] = 0;
+      end
+      else begin
+        sum = b1 - a1;
+        out[15] = 1;
+      end
+    end
+    else if(a[15] == 1 && b[15] == 1) begin
+      sum = a1 + b1;
+      out[15] = 1;
+    end
+
+    else begin
+      if(b1 > a1) begin
+        sum = b1 - a1;
+        out[15] = 0;
+      end
+      else begin
+        sum = a1 - b1;
+        out[15] = 1;
+      end
+    end
+
+    casex (sum)
+      12'b1xxxxxxxxxxx : begin sum = sum >> 1;  exp = exp + 1; end
+      12'b001xxxxxxxxx : begin sum = sum << 1;  exp = exp - 1; end
+      12'b0001xxxxxxxx : begin sum = sum << 2;  exp = exp - 2; end
+      12'b00001xxxxxxx : begin sum = sum << 3;  exp = exp - 3; end
+      12'b000001xxxxxx : begin sum = sum << 4;  exp = exp - 4; end
+      12'b0000001xxxxx : begin sum = sum << 5;  exp = exp - 5; end
+      12'b00000001xxxx : begin sum = sum << 6;  exp = exp - 6; end
+      12'b000000001xxx : begin sum = sum << 7;  exp = exp - 7; end
+      12'b0000000001xx : begin sum = sum << 8;  exp = exp - 8; end
+      12'b00000000001x : begin sum = sum << 9;  exp = exp - 9; end
+      12'b000000000001 : begin sum = sum << 10;  exp = exp - 10; end
+    endcase
+
+    out[9:0] = sum[9:0];
+    out[14:10] = exp;
+end
+  
+endmodule
